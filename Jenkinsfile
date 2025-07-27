@@ -42,5 +42,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Run Flask API in Docker') {
+            steps {
+                sh '''
+                    docker build -t titanic-api .
+                    docker run -d -p 5000:5000 --name titanic_api_container titanic-api
+                '''
+            }
+        }
     }
 }

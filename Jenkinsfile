@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        VENV_DIR = 'venv'
+        GCP_PROJECT = 'video-deneme-v2'
+    }
 
     stages {
         stage('Clone Repo') {
@@ -31,6 +35,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                         . venv/bin/activate
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
                         gsutil cp artifacts/titanic_model.pkl gs://deneme_bucket12/
                     '''
                 }

@@ -33,5 +33,5 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
-with open('artifacts/titanic_model.pkl', 'wb') as model_file:
+with open('../artifacts/titanic_model.pkl', 'wb') as model_file:
     pickle.dump(model, model_file)

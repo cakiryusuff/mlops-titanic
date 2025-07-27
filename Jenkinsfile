@@ -28,7 +28,10 @@ pipeline {
         stage('Upload to GCS') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh 'source venv/bin/activate && gsutil cp model.pkl gs://deneme_bucket12/'
+                    sh '''
+                        . venv/bin/activate
+                        gsutil cp artifacts/titanic_model.pkl gs://deneme_bucket12/
+                    '''
                 }
             }
         }

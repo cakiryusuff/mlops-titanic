@@ -26,6 +26,42 @@ pipeline {
             }
         }
         stage('Upload to GCS') {
+                steps {
+                    withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        sh '''
+                            pip install --upgrade pip
+                            pip install -r requirements.txt
+                            gsutil auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                            gsutil cp artifacts/titanic_model.pkl gs://senin-bucket-adin/
+                        '''
+                    }
+                }
+        }
+
+        stage('Install GCP CLI') {
+            steps {
+                sh '''
+                    if ! command -v gcloud > /dev/null; then
+                        echo ">>> Installing Google Cloud SDK"
+                        sudo apt update
+                        sudo apt install -y apt-transport-https ca-certificates gnupg curl
+
+                        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
+                          sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+                        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+                          sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
+                        sudo apt update
+                        sudo apt install -y google-cloud-sdk
+                    else
+                        echo ">>> gcloud already installed"
+                    fi
+                '''
+            }
+        }
+        
+        stage('Upload to GCS') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''

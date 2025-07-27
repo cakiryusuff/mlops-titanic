@@ -25,18 +25,6 @@ pipeline {
                 '''
             }
         }
-        stage('Upload to GCS') {
-                steps {
-                    withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        sh '''
-                            pip install --upgrade pip
-                            pip install -r requirements.txt
-                            gsutil auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                            gsutil cp artifacts/titanic_model.pkl gs://senin-bucket-adin/
-                        '''
-                    }
-                }
-        }
 
         stage('Install GCP CLI') {
             steps {
@@ -60,7 +48,7 @@ pipeline {
                 '''
             }
         }
-        
+
         stage('Upload to GCS') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {

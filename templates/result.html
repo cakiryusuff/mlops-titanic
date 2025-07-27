@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tahmin Sonucu</title>
+</head>
+<body>
+    <h2>Sonuç:</h2>
+    {% if prediction == 1 %}
+        <p>✅ Bu yolcu muhtemelen **hayatta kalacak**.</p>
+    {% else %}
+        <p>❌ Bu yolcu muhtemelen **hayatta kalamayacak**.</p>
+    {% endif %}
+    <a href="/">↩️ Geri dön</a>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Titanic Tahmin Formu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Titanic Yolcusu Hayatta Kalır mı?</h2>
+        <form action="/predict" method="post">
+            <label for="Pclass">Pclass:</label>
+            <input type="number" name="Pclass" min="1" max="3" required>
+
+            <label for="Sex">Cinsiyet:</label>
+            <select name="Sex" required>
+                <option value="male">Erkek</option>
+                <option value="female">Kadın</option>
+            </select>
+
+            <label for="Age">Yaş:</label>
+            <input type="number" name="Age" step="any" required>
+
+            <label for="SibSp">Kardeş / Eş Sayısı:</label>
+            <input type="number" name="SibSp" required>
+
+            <label for="Parch">Aile Bireyi Sayısı:</label>
+            <input type="number" name="Parch" required>
+
+            <label for="Fare">Bilet Ücreti:</label>
+            <input type="number" name="Fare" step="any" required>
+
+            <label for="Embarked">Biniş Limanı:</label>
+            <select name="Embarked" required>
+                <option value="C">Cherbourg</option>
+                <option value="Q">Queenstown</option>
+                <option value="S">Southampton</option>
+            </select>
+
+            <input type="submit" value="Tahmin Et">
+        </form>
+    </div>
+</body>
+</html>

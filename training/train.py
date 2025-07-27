@@ -4,6 +4,7 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 import pandas as pd
 import pickle
+import os
 
 def load_titanic_data():
     url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
@@ -33,5 +34,7 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
-with open('../artifacts/titanic_model.pkl', 'wb') as model_file:
+os.makedirs('artifacts/', exist_ok=True)
+
+with open('artifacts/titanic_model.pkl', 'wb') as model_file:
     pickle.dump(model, model_file)

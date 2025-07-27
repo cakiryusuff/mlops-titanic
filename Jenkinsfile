@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        VENV_DIR = 'venv'
         GCP_PROJECT = 'video-deneme-v2'
     }
 
@@ -46,6 +45,7 @@ pipeline {
         stage('Run Flask API in Docker') {
             steps {
                 sh '''
+                    docker rm -f titanic_api_container || true
                     docker build -t titanic-api .
                     docker run -d -p 5000:5000 --name titanic_api_container titanic-api
                 '''

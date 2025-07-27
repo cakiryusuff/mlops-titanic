@@ -9,12 +9,19 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt'
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
         stage('Train Model') {
             steps {
-                sh 'source venv/bin/activate && python train.py'
+                sh '''
+                    . venv/bin/activate
+                    python training/train.py
+                '''
             }
         }
         stage('Upload to GCS') {
